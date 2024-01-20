@@ -1,0 +1,3 @@
+These materials provide an introduction to using R Shiny for data storytelling. They were prepared for the Mastering Storytelling for Pharma Data Science Professionals short course at the [Pharmaceutical Data Science Conference 2024](https://phds.nestat.org/) held at University of Connecticut in March 2024.
+
+The materials were prepared by [Jonathan Tisack](https://www.linkedin.com/in/jtisack) (BeiGene) and [Dr. Zhiwei Yin](https://www.linkedin.com/in/zhiwei-yin-0ba00569/) (Bristol Myers Squibb).
