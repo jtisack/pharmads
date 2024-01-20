@@ -1,0 +1,9 @@
+project:
+  title: "pharmads-2024"
+  output-dir: docs
+format:
+  html:
+    toc: true
+
+
+
