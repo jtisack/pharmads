@@ -5,6 +5,7 @@ project:
 format:
   html:
     toc: true
+    code-fold: false
 
 
 

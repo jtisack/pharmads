@@ -1,11 +1,209 @@
 ---
-title: "pharmads-2024"
+title: "Storytelling with Shiny"
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
-## Quarto
+## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+These materials provide an introduction to using R Shiny for data
+storytelling. They were prepared for the Mastering Storytelling for
+Pharma Data Science Professionals short course at the [Pharmaceutical
+Data Science Conference 2024](https://phds.nestat.org/){target="_blank"}
+held at University of Connecticut in March 2024.
+
+The materials were prepared by [Jonathan
+Tisack](https://www.linkedin.com/in/jtisack){target="_blank"} (BeiGene)
+and [Dr. Zhiwei
+Yin](https://www.linkedin.com/in/zhiwei-yin-0ba00569/){target="_blank"}
+(Bristol Myers Squibb).
+
+## Following along during the Course
+
+Several options for running the code during the course:
+
+1.  [Shinylive](https://shinylive.io/r/editor/) is now the easiest way
+    to run a simple Shiny app. Simply click the link and Shiny will run
+    in your browser alongside a basic editor.
+
+    -   This works using the [WebR](https://docs.r-wasm.org/), which is
+        a version for R compiled for the browser using WebAssembly. This
+        is still in early stages and isn't recommended for production
+        use. [Try it here](https://webr.r-wasm.org/latest/).
+
+2.  [RStudio IDE](https://posit.co/products/open-source/rstudio/) is the
+    best way to do Shiny development. There are two ways to use it:
+
+    1.  [Download and install](https://posit.co/downloads/) RStudio
+        Desktop.
+    2.  Run it through your browser with a free [Posit
+        Cloud](https://posit.cloud/plans/free) account.
+
+## What is Shiny?
+
+-   **Shiny Basics**
+
+    -   R Shiny is an open source R package that enables easy creation
+        of interactive web applications. It is also available for
+        Python, but the package ecosystem is far less developed.
+    -   Posit (formerly RStudio) created Shiny and continues to lead
+        development.
+    -   No web development skills required. Shiny generates all the
+        HTML, CSS, and JavaScript for the web app.
+    -   Basic R proficiency is all that is required to use R Shiny.
+    -   Shiny has a very active community of developers. There are many,
+        many additional R packages that enhance Shiny.
+
+-   **Use Cases**
+
+    -   Interactive data visualization and exploration. Replace a giant
+        PDF of plots with a single app.
+    -   Customized report generation. Allow users to generate their own
+        reports or tables.
+    -   Deploying R scripts for non-technical users. Make a basic
+        interface that will allow users to interact with your code.
+    -   Make your reports interactive. Shiny can be integrated into
+        RMarkdown/Quarto documents.
+    -   Education tools to explain statistical concepts.
+    -   [RStudio IDE
+        gadgets](https://shiny.posit.co/r/articles/build/gadgets/).
+
+-   **Learning Resources**
+
+    -   Shiny has been around for 10+ years and there are many learning
+        resources available.
+
+    -   [R Shiny Documentation](https://shiny.posit.co/) - Includes
+        articles explaining specific topics, as well as a full function
+        reference.
+
+    -   [Mastering Shiny book](https://mastering-shiny.org/) - A book by
+        Hadley Wickham, freely available online, that covers all Shiny
+        features in an approachable manner.
+
+## Shiny Architecture
+
+### Typical Web App Architecture
+
+![](images/clipboard-1969708342.png)
+
+### Structure of a Shiny App
+
+Typically a shiny app is written in an R file called `app.R`. Within
+`app.R` there are three components:
+
+1.  A user interface object, typically named `ui`. This object controls
+    the layout of the app.
+
+2.  A `server` function. This function controls the interactive
+    component of the app. It is where your typical R code is executed,
+    such as code that does data transformations and generates
+    visualizations.
+
+3.  A call to the shiny package function `shinyApp()`, which takes the
+    `ui` object and `server` function as arguments.
+
+Here is a minimal shiny app:
 
 ```{r}
-1 + 1
+#| code-fold: true
+#| eval: false
+
+library(shiny)
+ui <- fluidPage(
+  "Hello, world!"
+)
+server <- function(input, output, session) {
+}
+shinyApp(ui, server)
 ```
+
+## Examples
+
+-   Posit has many examples in the [Shiny
+    Gallery](https://shiny.posit.co/r/gallery/)
+
+    1.  [Single-file shiny
+        app](https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/)
+
+    2.  [Old Faithful
+        Geyser](https://shiny.posit.co/r/gallery/start-simple/faithful/)
+
+    3.  [K-means
+        clustering](https://shiny.posit.co/r/gallery/start-simple/kmeans-example/)
+
+## 
+
+## User Interface
+
+### The user interface is static
+
+Code in the user interface is only run once. To illustrate this, try
+inspecting the ui object.
+
+::: {.callout-note collapse="true"}
+## Structure of a UI object
+
+```{r}
+library(shiny)
+ui <- fluidPage(
+  numericInput('n', 'Number of obs', 100),
+  plotOutput('plot')
+)
+str(ui)
+```
+:::
+
+### Bootstrap
+
+[Bootstrap](https://getbootstrap.com/) is a frontend web framework that
+Shiny utilizes when it generates the HTML/CSS/JS from the `ui` object.
+Web frameworks like Bootstrap exist so that web developers don't
+reinvent the wheel each time they create a new project. You don't need
+to know anything about Bootstrap to create a Shiny app, but can be
+helpful if you are a user interface perfectionist.
+
+## Deployment
+
+![](images/clipboard-3193985200.png)
+
+### Shiny Server
+
+[Shiny Server](https://posit.co/products/open-source/shinyserver/) is
+open source web server software. A single server running Shiny Server
+can host many shiny apps.
+
+1.  [Shinyapps.io](https://www.shinyapps.io/) is a managed service that
+    runs Shiny Server for you. It's the easiest way to get started
+    deploying Shiny apps. Deploying is fast and simple through the
+    RStudio IDE. It's free for 25 hours of hosting per month and paid
+    tiers allow additional hours.
+2.  Host Shiny Server on your own server. This will take some IT support
+    or knowledge, but many guides exist or deploying Shiny Server
+    yourself.
+
+### Shinylive
+
+Shinylive uses WebR to run a shiny app in the browser. There is no
+backend server required.
+
+1.  The technology is still early and many packages don't work.
+2.  No server involved. Doesn't work with large data sets.
+3.  The R code is run in the browser and therefore the user has access
+    to the entire app's source code and data.
+
+Two ways to use shinylive:
+
+-   Create your app on [shinylive.io](https://shinylive.io/r/editor/)
+    and use the "Share" button to generate a link to it. All of your
+    app's code and other assets will be compressed to a string and
+    contained in the generated link. Then simply send this link to a
+    user. This is the easiest way to share a Shiny app but it's limited
+    to small apps.
+
+-   Use the [shinylive R
+    package](https://github.com/posit-dev/r-shinylive) to create and
+    host your own static website. This is easy to do in combination with
+    the [shinylive quarto
+    extension](https://github.com/quarto-ext/shinylive).
