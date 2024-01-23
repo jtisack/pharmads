@@ -115,7 +115,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#about-me" id="toc-about-me" class="nav-link" data-scroll-target="#about-me">About me</a></li>
+  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey">Survey</a></li>
+  </ul></li>
   <li><a href="#following-along-during-the-course" id="toc-following-along-during-the-course" class="nav-link" data-scroll-target="#following-along-during-the-course">Following along during the Course</a></li>
   <li><a href="#what-is-shiny" id="toc-what-is-shiny" class="nav-link" data-scroll-target="#what-is-shiny">What is Shiny?</a></li>
   <li><a href="#shiny-architecture" id="toc-shiny-architecture" class="nav-link" data-scroll-target="#shiny-architecture">Shiny Architecture</a>
@@ -124,12 +128,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#structure-of-a-shiny-app" id="toc-structure-of-a-shiny-app" class="nav-link" data-scroll-target="#structure-of-a-shiny-app">Structure of a Shiny App</a></li>
   </ul></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User Interface</a>
   <ul class="collapse">
   <li><a href="#the-user-interface-is-static" id="toc-the-user-interface-is-static" class="nav-link" data-scroll-target="#the-user-interface-is-static">The user interface is static</a></li>
   <li><a href="#bootstrap" id="toc-bootstrap" class="nav-link" data-scroll-target="#bootstrap">Bootstrap</a></li>
   </ul></li>
+  <li><a href="#server-and-reactivity" id="toc-server-and-reactivity" class="nav-link" data-scroll-target="#server-and-reactivity">Server and Reactivity</a></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
   <ul class="collapse">
   <li><a href="#shiny-server" id="toc-shiny-server" class="nav-link" data-scroll-target="#shiny-server">Shiny Server</a></li>
@@ -164,6 +168,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>These materials provide an introduction to using R Shiny for data storytelling. They were prepared for the Mastering Storytelling for Pharma Data Science Professionals short course at the <a href="https://phds.nestat.org/" target="_blank">Pharmaceutical Data Science Conference 2024</a> held at University of Connecticut in March 2024.</p>
 <p>The materials were prepared by <a href="https://www.linkedin.com/in/jtisack" target="_blank">Jonathan Tisack</a> (BeiGene) and <a href="https://www.linkedin.com/in/zhiwei-yin-0ba00569/" target="_blank">Dr.&nbsp;Zhiwei Yin</a> (Bristol Myers Squibb).</p>
+<section id="about-me" class="level3">
+<h3 class="anchored" data-anchor-id="about-me">About me</h3>
+<ul>
+<li>Jonathan Tisack, M.S.</li>
+<li>Data Scientist at BeiGene</li>
+<li>R/Shiny user for over 5 years</li>
+</ul>
+</section>
+<section id="survey" class="level3">
+<h3 class="anchored" data-anchor-id="survey">Survey</h3>
+<p>Rate your experience level with R:</p>
+<ol type="1">
+<li>I barely know any R</li>
+<li>I know enough R to get around</li>
+<li>I know R inside out</li>
+</ol>
+<p>Have you used Shiny before?</p>
+</section>
 </section>
 <section id="following-along-during-the-course" class="level2">
 <h2 class="anchored" data-anchor-id="following-along-during-the-course">Following along during the Course</h2>
@@ -171,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><p><a href="https://shinylive.io/r/editor/">Shinylive</a> is now the easiest way to run a simple Shiny app. Simply click the link and Shiny will run in your browser alongside a basic editor.</p>
 <ul>
-<li>This works using the <a href="https://docs.r-wasm.org/">WebR</a>, which is a version for R compiled for the browser using WebAssembly. This is still in early stages and isn’t recommended for production use. <a href="https://webr.r-wasm.org/latest/">Try it here</a>.</li>
+<li>This works using <a href="https://docs.r-wasm.org/">WebR</a>, which is a version for R compiled for the browser using WebAssembly. This is still in early stages and isn’t recommended for production use. <a href="https://webr.r-wasm.org/latest/">Try it here</a>.</li>
 </ul></li>
 <li><p><a href="https://posit.co/products/open-source/rstudio/">RStudio IDE</a> is the best way to do Shiny development. There are two ways to use it:</p>
 <ol type="1">
@@ -196,15 +218,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Interactive data visualization and exploration. Replace a giant PDF of plots with a single app.</li>
 <li>Customized report generation. Allow users to generate their own reports or tables.</li>
 <li>Deploying R scripts for non-technical users. Make a basic interface that will allow users to interact with your code.</li>
-<li>Make your reports interactive. Shiny can be integrated into RMarkdown/Quarto documents.</li>
+<li>Make your reports interactive. Shiny can be integrated into RMarkdown/Quarto documents. <a href="https://www.youtube.com/watch?v=1mq9YgAEdXU">R/Pharma talk by Max Kuhn on using Shinylive in his new book.</a></li>
+<li>Make a front-end interface for a large language model.</li>
 <li>Education tools to explain statistical concepts.</li>
 <li><a href="https://shiny.posit.co/r/articles/build/gadgets/">RStudio IDE gadgets</a>.</li>
 </ul></li>
 <li><p><strong>Learning Resources</strong></p>
+<p>Shiny has been around for 10+ years and there are many learning resources available.</p>
 <ul>
-<li><p>Shiny has been around for 10+ years and there are many learning resources available.</p></li>
-<li><p><a href="https://shiny.posit.co/">R Shiny Documentation</a> - Includes articles explaining specific topics, as well as a full function reference.</p></li>
-<li><p><a href="https://mastering-shiny.org/">Mastering Shiny book</a> - A book by Hadley Wickham, freely available online, that covers all Shiny features in an approachable manner.</p></li>
+<li><a href="https://shiny.posit.co/">R Shiny Documentation</a> - Includes articles explaining specific topics, as well as a full function reference.</li>
+<li><a href="https://mastering-shiny.org/">Mastering Shiny book</a> - A book by Hadley Wickham, freely available online, that covers all Shiny features in an approachable manner.</li>
+<li><a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny Cheat Sheet</a></li>
 </ul></li>
 </ul>
 </section>
@@ -224,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Here is a minimal shiny app:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
@@ -248,11 +272,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol></li>
 </ul>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
-</section>
 <section id="user-interface" class="level2">
 <h2 class="anchored" data-anchor-id="user-interface">User Interface</h2>
+<ul>
+<li><p>The UI is mainly composed of <strong>inputs</strong> and <strong>outputs</strong>.</p></li>
+<li><p><strong>Inputs</strong> are widgets that get input from the user</p>
+<p><img src="images/clipboard-1862809380.png" class="img-fluid"></p></li>
+<li><p><strong>Outputs</strong> are placeholders that are later filled in by the <code>server</code> function. Each output has a corresponding render function in the <code>server</code>.</p>
+<p><img src="images/clipboard-235306912.png" class="img-fluid"></p></li>
+</ul>
 <section id="the-user-interface-is-static" class="level3">
 <h3 class="anchored" data-anchor-id="the-user-interface-is-static">The user interface is static</h3>
 <p>Code in the user interface is only run once. To illustrate this, try inspecting the ui object.</p>
@@ -273,8 +301,22 @@ Structure of a UI object
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, <span class="dv">100</span>),</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;div class="container-fluid"&gt;
+  &lt;div class="form-group shiny-input-container"&gt;
+    &lt;label class="control-label" id="n-label" for="n"&gt;Number of obs&lt;/label&gt;
+    &lt;input id="n" type="number" class="shiny-input-number form-control" value="100"/&gt;
+  &lt;/div&gt;
+  &lt;div class="shiny-plot-output html-fill-item" id="plot" style="width:100%;height:400px;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 4
  $ :List of 10
@@ -346,6 +388,9 @@ Structure of a UI object
 <h3 class="anchored" data-anchor-id="bootstrap">Bootstrap</h3>
 <p><a href="https://getbootstrap.com/">Bootstrap</a> is a frontend web framework that Shiny utilizes when it generates the HTML/CSS/JS from the <code>ui</code> object. Web frameworks like Bootstrap exist so that web developers don’t reinvent the wheel each time they create a new project. You don’t need to know anything about Bootstrap to create a Shiny app, but can be helpful if you are a user interface perfectionist.</p>
 </section>
+</section>
+<section id="server-and-reactivity" class="level2">
+<h2 class="anchored" data-anchor-id="server-and-reactivity">Server and Reactivity</h2>
 </section>
 <section id="deployment" class="level2">
 <h2 class="anchored" data-anchor-id="deployment">Deployment</h2>

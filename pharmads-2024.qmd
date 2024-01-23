@@ -19,6 +19,22 @@ and [Dr. Zhiwei
 Yin](https://www.linkedin.com/in/zhiwei-yin-0ba00569/){target="_blank"}
 (Bristol Myers Squibb).
 
+### About me
+
+-   Jonathan Tisack, M.S.
+-   Data Scientist at BeiGene
+-   R/Shiny user for over 5 years
+
+### Survey
+
+Rate your experience level with R:
+
+1.  I barely know any R
+2.  I know enough R to get around
+3.  I know R inside out
+
+Have you used Shiny before?
+
 ## Following along during the Course
 
 Several options for running the code during the course:
@@ -27,8 +43,8 @@ Several options for running the code during the course:
     to run a simple Shiny app. Simply click the link and Shiny will run
     in your browser alongside a basic editor.
 
-    -   This works using the [WebR](https://docs.r-wasm.org/), which is
-        a version for R compiled for the browser using WebAssembly. This
+    -   This works using [WebR](https://docs.r-wasm.org/), which is a
+        version for R compiled for the browser using WebAssembly. This
         is still in early stages and isn't recommended for production
         use. [Try it here](https://webr.r-wasm.org/latest/).
 
@@ -64,23 +80,27 @@ Several options for running the code during the course:
     -   Deploying R scripts for non-technical users. Make a basic
         interface that will allow users to interact with your code.
     -   Make your reports interactive. Shiny can be integrated into
-        RMarkdown/Quarto documents.
+        RMarkdown/Quarto documents. [R/Pharma talk by Max Kuhn on using
+        Shinylive in his new
+        book.](https://www.youtube.com/watch?v=1mq9YgAEdXU)
+    -   Make a front-end interface for a large language model.
     -   Education tools to explain statistical concepts.
     -   [RStudio IDE
         gadgets](https://shiny.posit.co/r/articles/build/gadgets/).
 
 -   **Learning Resources**
 
-    -   Shiny has been around for 10+ years and there are many learning
-        resources available.
+    Shiny has been around for 10+ years and there are many learning
+    resources available.
 
     -   [R Shiny Documentation](https://shiny.posit.co/) - Includes
         articles explaining specific topics, as well as a full function
         reference.
-
     -   [Mastering Shiny book](https://mastering-shiny.org/) - A book by
         Hadley Wickham, freely available online, that covers all Shiny
         features in an approachable manner.
+    -   [Shiny Cheat
+        Sheet](https://shiny.posit.co/r/articles/start/cheatsheet/)
 
 ## Shiny Architecture
 
@@ -107,7 +127,7 @@ Typically a shiny app is written in an R file called `app.R`. Within
 Here is a minimal shiny app:
 
 ```{r}
-#| code-fold: true
+#| code-fold: show
 #| eval: false
 
 library(shiny)
@@ -133,9 +153,19 @@ shinyApp(ui, server)
     3.  [K-means
         clustering](https://shiny.posit.co/r/gallery/start-simple/kmeans-example/)
 
-## 
-
 ## User Interface
+
+-   The UI is mainly composed of **inputs** and **outputs**.
+
+-   **Inputs** are widgets that get input from the user
+
+    ![](images/clipboard-1862809380.png)
+
+-   **Outputs** are placeholders that are later filled in by the
+    `server` function. Each output has a corresponding render function
+    in the `server`.
+
+    ![](images/clipboard-235306912.png)
 
 ### The user interface is static
 
@@ -151,6 +181,13 @@ ui <- fluidPage(
   numericInput('n', 'Number of obs', 100),
   plotOutput('plot')
 )
+```
+
+```{r}
+print(ui)
+```
+
+```{r}
 str(ui)
 ```
 :::
@@ -163,6 +200,8 @@ Web frameworks like Bootstrap exist so that web developers don't
 reinvent the wheel each time they create a new project. You don't need
 to know anything about Bootstrap to create a Shiny app, but can be
 helpful if you are a user interface perfectionist.
+
+## Server and Reactivity
 
 ## Deployment
 
