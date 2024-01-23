@@ -1,0 +1,15 @@
+// Grid breakpoints
+//
+// Changing this so the website can be changed to mobile layout for the
+// workshop presentation.
+
+
+/*-- scss:defaults --*/
+$grid-breakpoints: (
+  xs: 0,
+  sm: 1000px,
+  md: 1000px,
+  lg: 1000px,
+  xl: 1000px,
+  xxl: 1000px
+) !default;
