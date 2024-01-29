@@ -21,7 +21,7 @@ Yin](https://www.linkedin.com/in/zhiwei-yin-0ba00569/){target="_blank"}
 
 ### About me
 
--   Jonathan Tisack, M.S.
+-   Jonathan Tisack, M.S. Mathematics
 -   Data Scientist at BeiGene
 -   R/Shiny user for over 5 years
 
@@ -144,14 +144,97 @@ shinyApp(ui, server)
 -   Posit has many examples in the [Shiny
     Gallery](https://shiny.posit.co/r/gallery/)
 
-    1.  [Single-file shiny
-        app](https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/)
+### Single-file Shiny App Example
 
-    2.  [Old Faithful
-        Geyser](https://shiny.posit.co/r/gallery/start-simple/faithful/)
+-   [Single File Shiny App
+    Example](https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/)
+    ([Open in Shinylive
+    editor](https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAYgAIBxAGyICMpHaA3KAJwEsoLRnADOtAlAi0A5kVoALODzgAdCFIA8AWloAmAAz61xiHQAicAGZ8IcWqUW0AqgEk1AVz61ttFkSKkIqQ8aAAKUNJwABRqtLQQ7vD8BC4QqO6kUQDkEFm4tFkAcoksSrREluUsInnxAJS4sbSozKQA8hnpmVktAVl1agMQJuZWNnYOdiJKnGXEACaqENM8szzeOpbuEASkfCRRNl35RJ0ZdbQgTaekXQAkvaQbtMoQizyhrVFXUnEKfEEojxtnxLIc0hk7hA6kM4gBfIZwka0LBwUjuHhSKC0ADK8hsAE9aGhUFUAFZwXZqET4iAEgCC6CinloAF5aJ58is1mzaNylHUwHCALpAA))
 
-    3.  [K-means
-        clustering](https://shiny.posit.co/r/gallery/start-simple/kmeans-example/)
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-fold: true
+    library(shiny)
+
+    # Global variables can go here
+    n <- 200
+
+    # Define the UI
+    ui <- bootstrapPage(
+      numericInput('n', 'Number of obs', n),
+      plotOutput('plot')
+    )
+
+
+    # Define the server code
+    server <- function(input, output) {
+      output$plot <- renderPlot({
+        hist(runif(input$n))
+      })
+    }
+
+    # Return a Shiny app object
+    shinyApp(ui = ui, server = server)
+    ```
+
+### K-Means Clustering Example
+
+-   [K-Means Clustering
+    Example](https://shiny.posit.co/r/gallery/start-simple/kmeans-example/)
+    ([Open in Shinylive
+    editor](https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IIgMQACANYBaeFAicJJaqwkB3IoylL1tUtwkQArvEa0CUahIBuLWlHrU4nXOImciEgCYkA5KQSAOa0NnASBuHGnHCMEdzhRKiktCQRXjHOBKTuUBKW5EFaFla29o7OInaMSgA8Mh5wpN60AGat7NDwnOy05pwCuBJCYADKqHAEtC4jwqImtBL1EqhQQXAA6vrco7TecPQs7CISEglQ+4wACgpw1Ox+AJL90nJwCkoE1NHk5hBBfkGJw8ewOLBuEDuxwgp1OmUmpEeEFQxlIDwAHsRqH4hn4ABoSABq5SccBxZRqQJhsPh2SRKLRflYWPJfgAmkSSc5ydVXI0suRvBIALwUzjAYAAJgAutKqbCjKZYhZ6aiHl8frFOKyAMLfTi-fJEYxkckAZiGMD4IokAEZLVB0TaAJxzU7yiQwKB8CFQ4GnVDUIikADyqIZD0DwdtgOBczmIhEMUYYTiy1aJuyqQgvWRqKGxtIDKGMU4nGzAgkIET1MkOqIMHofHCkX5CLgQuqDlJSj4pC8eUh6h8UFIeVazHgwNpgoAIqO8stGO8s2F2NXqac+rRxUMCLmGQASTFEahDPhH5mngTS4EAXwT1I1Bq1Sway6gq7g6-90nkii4O5228ecx3YQYJAvVFD2fX4BnvR9TkLI8o1IW03wkZcIEuK4gzRDcFVWZxSHIdh9xGMQAFEABZbQAQVtHURiGCizQAdjYyiACEAA5mOGMAxGo2c6IAMWouj+Io50eOoyi6LNZjf1OCjRNEtjRIABk0qTBLUtSzUUvABLEOiADYAFYzMlPjjNUtieNtLjRN0sRnXcjzZkQ2FVkYdgvTiUV9wsjB7QkajQqGTShltAQ3R8vDAIFDtQKgcC3E3BVTixG1YK1cCYP1X4MqywiCEMUVJWi-I4CdUUzXigMiD7Ho8pqAqCAoOChlQcqbWovdav6oZqHUIVRWo+KHxrO8azrD9yAkUZeH4CQ0FQCQZC2mQkxW1g6PQdhjEWUVjpLWJUxtZNUzmMA72lIA))
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-fold: true
+library(shiny)
+
+# k-means only works with numerical variables,
+# so don't give the user the option to select
+# a categorical variable
+vars <- setdiff(names(iris), "Species")
+
+ui <- pageWithSidebar(
+  headerPanel('Iris k-means clustering'),
+  sidebarPanel(
+    selectInput('xcol', 'X Variable', vars),
+    selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    plotOutput('plot1')
+  )
+)
+
+server <- function(input, output, session) {
+
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({
+    iris[, c(input$xcol, input$ycol)]
+  })
+
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+
+  output$plot1 <- renderPlot({
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+      "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(selectedData(),
+         col = clusters()$cluster,
+         pch = 20, cex = 3)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+  })
+
+}
+
+# Create Shiny app ----
+shinyApp(ui = ui, server = server)
+```
 
 ## User Interface
 
@@ -192,16 +275,154 @@ str(ui)
 ```
 :::
 
-### Bootstrap
+## Server and Reactivity
+
+-   Shiny server logic is based on a reactive programming paradigm.
+
+-   Reactivity means that when an input changes, all dependent outputs
+    are recalculated.
+
+-   Server logic is expressed in the `server(input, output, session)`
+    function, which Shiny invokes each time a new *session* starts.
+
+    -   A session starts whenever a user opens the shiny app. A single
+        shiny server may run many sessions from different (or the same)
+        users.
+
+    -   The parameters of the server function (input, output, session)
+        are separate for each session.
+
+-   The three parameters of the `server` function are:
+
+    -   `input`: A read-only list of the inputs defined in the UI, and
+        their current values. This is how the server function can use
+        the inputs defined in the UI.
+
+    -   `output`: A list of outputs defined in the UI. This is how a
+        user defines the app's outputs, and it must always be used with
+        a `render` function.
+
+    -   `session`: An optional parameter with a lot of functionality,
+        mainly for advanced users. See the
+        [documentation](https://shiny.posit.co/r/reference/shiny/latest/session.html)
+        for details.
+
+-   Code in the server function is not run linearly, it is **lazy** and
+    **reactive**.
+
+    -   **Lazy** means that that it is only run when needed. If a user
+        can't see an output on their screen, the code to generate that
+        output is not run. If an app has multiple pages/tabs, the code
+        for an output isn't run until the user navigates to that tab.
+
+    -   **Reactive** means that when an input is used in the code that
+        defines an output, that output takes a **dependency** on the
+        input. Whenever a dependency of an output changes, the output
+        code will be re-run.
+
+-   This means that the order of code in the server function does not
+    matter. Code is run when needed, based on the **reactive graph.**
+
+    -   Examples from [Posit
+        Documentation](https://shiny.posit.co/r/articles/build/reactivity-overview/).
+
+    -   A simple reactive graph.
+
+        ```{r}
+        #| echo: true
+        #| eval: false
+        server <- function(input, output) {
+          output$distPlot <- renderPlot({
+            hist(rnorm(input$obs))
+          })
+        }
+        ```
+
+        ![](images/clipboard-1863259463.png)
+
+    -   A more complex reactive graph. Outputs can depend on any
+        combination of inputs. Dependencies can overlap between outputs.
+
+        ```{r}
+        #| echo: true
+        #| eval: false
+        server <- function(input, output) {
+          output$plotOut <- renderPlot({
+            hist(faithful$eruptions, breaks = as.numeric(input$nBreaks))
+            if (input$individualObs)
+              rug(faithful$eruptions)
+          })
+
+          output$tableOut <- renderTable({
+            if (input$individualObs)
+              faithful
+            else
+              NULL
+          })
+        }
+        ```
+
+        ![](images/clipboard-3517538182.png)
+
+    -   A reactive graph with an intermediate reactive expression.
+
+        ```{r}
+        #| echo: true
+        #| eval: false
+        fib <- function(n) ifelse(n<3, 1, fib(n-1)+fib(n-2))
+
+        server <- function(input, output) {
+          currentFib         <- reactive({ fib(as.numeric(input$n)) })
+
+          output$nthValue    <- renderText({ currentFib() })
+          output$nthValueInv <- renderText({ 1 / currentFib() })
+        }
+        ```
+
+        ![](images/clipboard-109326790.png)
+
+## Advanced UI
+
+### Bslib
+
+[bslib](https://rstudio.github.io/bslib/) is a package that expands the
+user interface toolkit for Shiny. It is particularly helpful for custom
+theming and dashboard design. Think of it like Shiny UI 2.0.
+
+![](images/clipboard-3595974704.png)
+
+#### Bootstrap
 
 [Bootstrap](https://getbootstrap.com/) is a frontend web framework that
 Shiny utilizes when it generates the HTML/CSS/JS from the `ui` object.
 Web frameworks like Bootstrap exist so that web developers don't
 reinvent the wheel each time they create a new project. You don't need
 to know anything about Bootstrap to create a Shiny app, but can be
-helpful if you are a user interface perfectionist.
+helpful if you are a user interface perfectionist. By default shiny
+utilizes Bootstrap 3, and the bslib package uses Boostrap 5 (the latest
+version).
 
-## Server and Reactivity
+### ShinyUiEditor
+
+[ShinyUiEditor](https://rstudio.github.io/shinyuieditor/) is a package
+that launches a low-code tool for building a Shiny UI and generating app
+code. You don't actually need to install it to use it, you can launch a
+demo through the package website.
+
+### Plotly
+
+One of the most popular packages to use with Shiny is
+[plotly](https://plotly.com/r/getting-started/), which is an R package
+based on the plotlyjs web framework for plotting. There is a freely
+available book written by the package author Carson Sievert:
+[Interactive web-based data visualization with R, plotly, and
+shiny](https://plotly-r.com/).
+
+### Many, many other Shiny packages
+
+There are many R packages available that extend Shiny in various ways. A
+nice list of the most popular ones is maintained in the Github repo
+[nanxstats/awesome-shiny-extensions](https://github.com/nanxstats/awesome-shiny-extensions).
 
 ## Deployment
 

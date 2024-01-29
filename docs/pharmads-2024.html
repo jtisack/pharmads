@@ -127,13 +127,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#typical-web-app-architecture" id="toc-typical-web-app-architecture" class="nav-link" data-scroll-target="#typical-web-app-architecture">Typical Web App Architecture</a></li>
   <li><a href="#structure-of-a-shiny-app" id="toc-structure-of-a-shiny-app" class="nav-link" data-scroll-target="#structure-of-a-shiny-app">Structure of a Shiny App</a></li>
   </ul></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#single-file-shiny-app-example" id="toc-single-file-shiny-app-example" class="nav-link" data-scroll-target="#single-file-shiny-app-example">Single-file Shiny App Example</a></li>
+  <li><a href="#k-means-clustering-example" id="toc-k-means-clustering-example" class="nav-link" data-scroll-target="#k-means-clustering-example">K-Means Clustering Example</a></li>
+  </ul></li>
   <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User Interface</a>
   <ul class="collapse">
   <li><a href="#the-user-interface-is-static" id="toc-the-user-interface-is-static" class="nav-link" data-scroll-target="#the-user-interface-is-static">The user interface is static</a></li>
-  <li><a href="#bootstrap" id="toc-bootstrap" class="nav-link" data-scroll-target="#bootstrap">Bootstrap</a></li>
   </ul></li>
   <li><a href="#server-and-reactivity" id="toc-server-and-reactivity" class="nav-link" data-scroll-target="#server-and-reactivity">Server and Reactivity</a></li>
+  <li><a href="#advanced-ui" id="toc-advanced-ui" class="nav-link" data-scroll-target="#advanced-ui">Advanced UI</a>
+  <ul class="collapse">
+  <li><a href="#bslib" id="toc-bslib" class="nav-link" data-scroll-target="#bslib">Bslib</a></li>
+  <li><a href="#shinyuieditor" id="toc-shinyuieditor" class="nav-link" data-scroll-target="#shinyuieditor">ShinyUiEditor</a></li>
+  <li><a href="#plotly" id="toc-plotly" class="nav-link" data-scroll-target="#plotly">Plotly</a></li>
+  <li><a href="#many-many-other-shiny-packages" id="toc-many-many-other-shiny-packages" class="nav-link" data-scroll-target="#many-many-other-shiny-packages">Many, many other Shiny packages</a></li>
+  </ul></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
   <ul class="collapse">
   <li><a href="#shiny-server" id="toc-shiny-server" class="nav-link" data-scroll-target="#shiny-server">Shiny Server</a></li>
@@ -171,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="about-me" class="level3">
 <h3 class="anchored" data-anchor-id="about-me">About me</h3>
 <ul>
-<li>Jonathan Tisack, M.S.</li>
+<li>Jonathan Tisack, M.S. Mathematics</li>
 <li>Data Scientist at BeiGene</li>
 <li>R/Shiny user for over 5 years</li>
 </ul>
@@ -264,13 +274,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <ul>
-<li><p>Posit has many examples in the <a href="https://shiny.posit.co/r/gallery/">Shiny Gallery</a></p>
-<ol type="1">
-<li><p><a href="https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/">Single-file shiny app</a></p></li>
-<li><p><a href="https://shiny.posit.co/r/gallery/start-simple/faithful/">Old Faithful Geyser</a></p></li>
-<li><p><a href="https://shiny.posit.co/r/gallery/start-simple/kmeans-example/">K-means clustering</a></p></li>
-</ol></li>
+<li>Posit has many examples in the <a href="https://shiny.posit.co/r/gallery/">Shiny Gallery</a></li>
 </ul>
+<section id="single-file-shiny-app-example" class="level3">
+<h3 class="anchored" data-anchor-id="single-file-shiny-app-example">Single-file Shiny App Example</h3>
+<ul>
+<li><p><a href="https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/">Single File Shiny App Example</a> (<a href="https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAYgAIBxAGyICMpHaA3KAJwEsoLRnADOtAlAi0A5kVoALODzgAdCFIA8AWloAmAAz61xiHQAicAGZ8IcWqUW0AqgEk1AVz61ttFkSKkIqQ8aAAKUNJwABRqtLQQ7vD8BC4QqO6kUQDkEFm4tFkAcoksSrREluUsInnxAJS4sbSozKQA8hnpmVktAVl1agMQJuZWNnYOdiJKnGXEACaqENM8szzeOpbuEASkfCRRNl35RJ0ZdbQgTaekXQAkvaQbtMoQizyhrVFXUnEKfEEojxtnxLIc0hk7hA6kM4gBfIZwka0LBwUjuHhSKC0ADK8hsAE9aGhUFUAFZwXZqET4iAEgCC6CinloAF5aJ58is1mzaNylHUwHCALpAA">Open in Shinylive editor</a>)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Global variables can go here</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the UI</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">bootstrapPage</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, n),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the server code</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(<span class="fu">runif</span>(input<span class="sc">$</span>n))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Return a Shiny app object</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></li>
+</ul>
+</section>
+<section id="k-means-clustering-example" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering-example">K-Means Clustering Example</h3>
+<ul>
+<li><a href="https://shiny.posit.co/r/gallery/start-simple/kmeans-example/">K-Means Clustering Example</a> (<a href="https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IIgMQACANYBaeFAicJJaqwkB3IoylL1tUtwkQArvEa0CUahIBuLWlHrU4nXOImciEgCYkA5KQSAOa0NnASBuHGnHCMEdzhRKiktCQRXjHOBKTuUBKW5EFaFla29o7OInaMSgA8Mh5wpN60AGat7NDwnOy05pwCuBJCYADKqHAEtC4jwqImtBL1EqhQQXAA6vrco7TecPQs7CISEglQ+4wACgpw1Ox+AJL90nJwCkoE1NHk5hBBfkGJw8ewOLBuEDuxwgp1OmUmpEeEFQxlIDwAHsRqH4hn4ABoSABq5SccBxZRqQJhsPh2SRKLRflYWPJfgAmkSSc5ydVXI0suRvBIALwUzjAYAAJgAutKqbCjKZYhZ6aiHl8frFOKyAMLfTi-fJEYxkckAZiGMD4IokAEZLVB0TaAJxzU7yiQwKB8CFQ4GnVDUIikADyqIZD0DwdtgOBczmIhEMUYYTiy1aJuyqQgvWRqKGxtIDKGMU4nGzAgkIET1MkOqIMHofHCkX5CLgQuqDlJSj4pC8eUh6h8UFIeVazHgwNpgoAIqO8stGO8s2F2NXqac+rRxUMCLmGQASTFEahDPhH5mngTS4EAXwT1I1Bq1Sway6gq7g6-90nkii4O5228ecx3YQYJAvVFD2fX4BnvR9TkLI8o1IW03wkZcIEuK4gzRDcFVWZxSHIdh9xGMQAFEABZbQAQVtHURiGCizQAdjYyiACEAA5mOGMAxGo2c6IAMWouj+Io50eOoyi6LNZjf1OCjRNEtjRIABk0qTBLUtSzUUvABLEOiADYAFYzMlPjjNUtieNtLjRN0sRnXcjzZkQ2FVkYdgvTiUV9wsjB7QkajQqGTShltAQ3R8vDAIFDtQKgcC3E3BVTixG1YK1cCYP1X4MqywiCEMUVJWi-I4CdUUzXigMiD7Ho8pqAqCAoOChlQcqbWovdav6oZqHUIVRWo+KHxrO8azrD9yAkUZeH4CQ0FQCQZC2mQkxW1g6PQdhjEWUVjpLWJUxtZNUzmMA72lIA">Open in Shinylive editor</a>)</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means only works with numerical variables,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># so don't give the user the option to select</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a categorical variable</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(iris), <span class="st">"Species"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">pageWithSidebar</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">headerPanel</span>(<span class="st">'Iris k-means clustering'</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(<span class="st">'xcol'</span>, <span class="st">'X Variable'</span>, vars),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(<span class="st">'ycol'</span>, <span class="st">'Y Variable'</span>, vars, <span class="at">selected =</span> vars[[<span class="dv">2</span>]]),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">numericInput</span>(<span class="st">'clusters'</span>, <span class="st">'Cluster count'</span>, <span class="dv">3</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">9</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mainPanel</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotOutput</span>(<span class="st">'plot1'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine the selected variables into a new data frame</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  selectedData <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    iris[, <span class="fu">c</span>(input<span class="sc">$</span>xcol, input<span class="sc">$</span>ycol)]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  clusters <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kmeans</span>(<span class="fu">selectedData</span>(), input<span class="sc">$</span>clusters)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot1 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">palette</span>(<span class="fu">c</span>(<span class="st">"#E41A1C"</span>, <span class="st">"#377EB8"</span>, <span class="st">"#4DAF4A"</span>, <span class="st">"#984EA3"</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">"#FF7F00"</span>, <span class="st">"#FFFF33"</span>, <span class="st">"#A65628"</span>, <span class="st">"#F781BF"</span>, <span class="st">"#999999"</span>))</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">selectedData</span>(),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">clusters</span>()<span class="sc">$</span>cluster,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="fu">clusters</span>()<span class="sc">$</span>centers, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Shiny app ----</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
 </section>
 <section id="user-interface" class="level2">
 <h2 class="anchored" data-anchor-id="user-interface">User Interface</h2>
@@ -297,14 +390,14 @@ Structure of a UI object
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, <span class="dv">100</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, <span class="dv">100</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;div class="container-fluid"&gt;
   &lt;div class="form-group shiny-input-container"&gt;
@@ -316,7 +409,7 @@ Structure of a UI object
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 4
  $ :List of 10
@@ -384,13 +477,96 @@ Structure of a UI object
 </div>
 </div>
 </section>
-<section id="bootstrap" class="level3">
-<h3 class="anchored" data-anchor-id="bootstrap">Bootstrap</h3>
-<p><a href="https://getbootstrap.com/">Bootstrap</a> is a frontend web framework that Shiny utilizes when it generates the HTML/CSS/JS from the <code>ui</code> object. Web frameworks like Bootstrap exist so that web developers don’t reinvent the wheel each time they create a new project. You don’t need to know anything about Bootstrap to create a Shiny app, but can be helpful if you are a user interface perfectionist.</p>
-</section>
 </section>
 <section id="server-and-reactivity" class="level2">
 <h2 class="anchored" data-anchor-id="server-and-reactivity">Server and Reactivity</h2>
+<ul>
+<li><p>Shiny server logic is based on a reactive programming paradigm.</p></li>
+<li><p>Reactivity means that when an input changes, all dependent outputs are recalculated.</p></li>
+<li><p>Server logic is expressed in the <code>server(input, output, session)</code> function, which Shiny invokes each time a new <em>session</em> starts.</p>
+<ul>
+<li><p>A session starts whenever a user opens the shiny app. A single shiny server may run many sessions from different (or the same) users.</p></li>
+<li><p>The parameters of the server function (input, output, session) are separate for each session.</p></li>
+</ul></li>
+<li><p>The three parameters of the <code>server</code> function are:</p>
+<ul>
+<li><p><code>input</code>: A read-only list of the inputs defined in the UI, and their current values. This is how the server function can use the inputs defined in the UI.</p></li>
+<li><p><code>output</code>: A list of outputs defined in the UI. This is how a user defines the app’s outputs, and it must always be used with a <code>render</code> function.</p></li>
+<li><p><code>session</code>: An optional parameter with a lot of functionality, mainly for advanced users. See the <a href="https://shiny.posit.co/r/reference/shiny/latest/session.html">documentation</a> for details.</p></li>
+</ul></li>
+<li><p>Code in the server function is not run linearly, it is <strong>lazy</strong> and <strong>reactive</strong>.</p>
+<ul>
+<li><p><strong>Lazy</strong> means that that it is only run when needed. If a user can’t see an output on their screen, the code to generate that output is not run. If an app has multiple pages/tabs, the code for an output isn’t run until the user navigates to that tab.</p></li>
+<li><p><strong>Reactive</strong> means that when an input is used in the code that defines an output, that output takes a <strong>dependency</strong> on the input. Whenever a dependency of an output changes, the output code will be re-run.</p></li>
+</ul></li>
+<li><p>This means that the order of code in the server function does not matter. Code is run when needed, based on the <strong>reactive graph.</strong></p>
+<ul>
+<li><p>Examples from <a href="https://shiny.posit.co/r/articles/build/reactivity-overview/">Posit Documentation</a>.</p></li>
+<li><p>A simple reactive graph.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>obs))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-1863259463.png" class="img-fluid"></p></li>
+<li><p>A more complex reactive graph. Outputs can depend on any combination of inputs. Dependencies can overlap between outputs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plotOut <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> <span class="fu">as.numeric</span>(input<span class="sc">$</span>nBreaks))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rug</span>(faithful<span class="sc">$</span>eruptions)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>tableOut <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      faithful</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NULL</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-3517538182.png" class="img-fluid"></p></li>
+<li><p>A reactive graph with an intermediate reactive expression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fib <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">ifelse</span>(n<span class="sc">&lt;</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="fu">fib</span>(n<span class="dv">-1</span>)<span class="sc">+</span><span class="fu">fib</span>(n<span class="dv">-2</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  currentFib         <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">fib</span>(<span class="fu">as.numeric</span>(input<span class="sc">$</span>n)) })</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValue    <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="fu">currentFib</span>() })</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValueInv <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="dv">1</span> <span class="sc">/</span> <span class="fu">currentFib</span>() })</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-109326790.png" class="img-fluid"></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="advanced-ui" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-ui">Advanced UI</h2>
+<section id="bslib" class="level3">
+<h3 class="anchored" data-anchor-id="bslib">Bslib</h3>
+<p><a href="https://rstudio.github.io/bslib/">bslib</a> is a package that expands the user interface toolkit for Shiny. It is particularly helpful for custom theming and dashboard design. Think of it like Shiny UI 2.0.</p>
+<p><img src="images/clipboard-3595974704.png" class="img-fluid"></p>
+<section id="bootstrap" class="level4">
+<h4 class="anchored" data-anchor-id="bootstrap">Bootstrap</h4>
+<p><a href="https://getbootstrap.com/">Bootstrap</a> is a frontend web framework that Shiny utilizes when it generates the HTML/CSS/JS from the <code>ui</code> object. Web frameworks like Bootstrap exist so that web developers don’t reinvent the wheel each time they create a new project. You don’t need to know anything about Bootstrap to create a Shiny app, but can be helpful if you are a user interface perfectionist. By default shiny utilizes Bootstrap 3, and the bslib package uses Boostrap 5 (the latest version).</p>
+</section>
+</section>
+<section id="shinyuieditor" class="level3">
+<h3 class="anchored" data-anchor-id="shinyuieditor">ShinyUiEditor</h3>
+<p><a href="https://rstudio.github.io/shinyuieditor/">ShinyUiEditor</a> is a package that launches a low-code tool for building a Shiny UI and generating app code. You don’t actually need to install it to use it, you can launch a demo through the package website.</p>
+</section>
+<section id="plotly" class="level3">
+<h3 class="anchored" data-anchor-id="plotly">Plotly</h3>
+<p>One of the most popular packages to use with Shiny is <a href="https://plotly.com/r/getting-started/">plotly</a>, which is an R package based on the plotlyjs web framework for plotting. There is a freely available book written by the package author Carson Sievert: <a href="https://plotly-r.com/">Interactive web-based data visualization with R, plotly, and shiny</a>.</p>
+</section>
+<section id="many-many-other-shiny-packages" class="level3">
+<h3 class="anchored" data-anchor-id="many-many-other-shiny-packages">Many, many other Shiny packages</h3>
+<p>There are many R packages available that extend Shiny in various ways. A nice list of the most popular ones is maintained in the Github repo <a href="https://github.com/nanxstats/awesome-shiny-extensions">nanxstats/awesome-shiny-extensions</a>.</p>
+</section>
 </section>
 <section id="deployment" class="level2">
 <h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
