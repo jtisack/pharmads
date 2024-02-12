@@ -381,6 +381,17 @@ str(ui)
 
         ![](images/clipboard-109326790.png)
 
+::: {.callout-note collapse="true"}
+#### Reactlog
+
+[Reactlog](https://rstudio.github.io/reactlog/) is an R package that
+visualizes the reactive graph for a particular Shiny app session. This
+can be very helpful when trying to debug a large app with a lot of
+reactivity.
+
+![](images/clipboard-2440969292.png)
+:::
+
 ## Advanced UI
 
 ### Bslib
@@ -391,6 +402,7 @@ theming and dashboard design. Think of it like Shiny UI 2.0.
 
 ![](images/clipboard-3595974704.png)
 
+::: {.callout-note collapse="true"}
 #### Bootstrap
 
 [Bootstrap](https://getbootstrap.com/) is a frontend web framework that
@@ -401,6 +413,7 @@ to know anything about Bootstrap to create a Shiny app, but can be
 helpful if you are a user interface perfectionist. By default shiny
 utilizes Bootstrap 3, and the bslib package uses Boostrap 5 (the latest
 version).
+:::
 
 ### ShinyUiEditor
 
@@ -409,9 +422,13 @@ that launches a low-code tool for building a Shiny UI and generating app
 code. You don't actually need to install it to use it, you can launch a
 demo through the package website.
 
-### Plotly
+### Htmlwidgets
 
-One of the most popular packages to use with Shiny is
+[Htmlwidgets](https://www.htmlwidgets.org/) are R packages that enable
+using Javascript visualization libraries in R. Widgets can be used at
+the R console and embedded in Shiny apps.
+
+One of the most popular htmlwidget packages to use with Shiny is
 [plotly](https://plotly.com/r/getting-started/), which is an R package
 based on the plotlyjs web framework for plotting. There is a freely
 available book written by the package author Carson Sievert:

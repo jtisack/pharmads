@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#bslib" id="toc-bslib" class="nav-link" data-scroll-target="#bslib">Bslib</a></li>
   <li><a href="#shinyuieditor" id="toc-shinyuieditor" class="nav-link" data-scroll-target="#shinyuieditor">ShinyUiEditor</a></li>
-  <li><a href="#plotly" id="toc-plotly" class="nav-link" data-scroll-target="#plotly">Plotly</a></li>
+  <li><a href="#htmlwidgets" id="toc-htmlwidgets" class="nav-link" data-scroll-target="#htmlwidgets">Htmlwidgets</a></li>
   <li><a href="#many-many-other-shiny-packages" id="toc-many-many-other-shiny-packages" class="nav-link" data-scroll-target="#many-many-other-shiny-packages">Many, many other Shiny packages</a></li>
   </ul></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
@@ -543,6 +543,23 @@ Structure of a UI object
 <p><img src="images/clipboard-109326790.png" class="img-fluid"></p></li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reactlog
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://rstudio.github.io/reactlog/">Reactlog</a> is an R package that visualizes the reactive graph for a particular Shiny app session. This can be very helpful when trying to debug a large app with a lot of reactivity.</p>
+<p><img src="images/clipboard-2440969292.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="advanced-ui" class="level2">
 <h2 class="anchored" data-anchor-id="advanced-ui">Advanced UI</h2>
@@ -550,18 +567,31 @@ Structure of a UI object
 <h3 class="anchored" data-anchor-id="bslib">Bslib</h3>
 <p><a href="https://rstudio.github.io/bslib/">bslib</a> is a package that expands the user interface toolkit for Shiny. It is particularly helpful for custom theming and dashboard design. Think of it like Shiny UI 2.0.</p>
 <p><img src="images/clipboard-3595974704.png" class="img-fluid"></p>
-<section id="bootstrap" class="level4">
-<h4 class="anchored" data-anchor-id="bootstrap">Bootstrap</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bootstrap
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p><a href="https://getbootstrap.com/">Bootstrap</a> is a frontend web framework that Shiny utilizes when it generates the HTML/CSS/JS from the <code>ui</code> object. Web frameworks like Bootstrap exist so that web developers don’t reinvent the wheel each time they create a new project. You don’t need to know anything about Bootstrap to create a Shiny app, but can be helpful if you are a user interface perfectionist. By default shiny utilizes Bootstrap 3, and the bslib package uses Boostrap 5 (the latest version).</p>
-</section>
+</div>
+</div>
+</div>
 </section>
 <section id="shinyuieditor" class="level3">
 <h3 class="anchored" data-anchor-id="shinyuieditor">ShinyUiEditor</h3>
 <p><a href="https://rstudio.github.io/shinyuieditor/">ShinyUiEditor</a> is a package that launches a low-code tool for building a Shiny UI and generating app code. You don’t actually need to install it to use it, you can launch a demo through the package website.</p>
 </section>
-<section id="plotly" class="level3">
-<h3 class="anchored" data-anchor-id="plotly">Plotly</h3>
-<p>One of the most popular packages to use with Shiny is <a href="https://plotly.com/r/getting-started/">plotly</a>, which is an R package based on the plotlyjs web framework for plotting. There is a freely available book written by the package author Carson Sievert: <a href="https://plotly-r.com/">Interactive web-based data visualization with R, plotly, and shiny</a>.</p>
+<section id="htmlwidgets" class="level3">
+<h3 class="anchored" data-anchor-id="htmlwidgets">Htmlwidgets</h3>
+<p><a href="https://www.htmlwidgets.org/">Htmlwidgets</a> are R packages that enable using Javascript visualization libraries in R. Widgets can be used at the R console and embedded in Shiny apps.</p>
+<p>One of the most popular htmlwidget packages to use with Shiny is <a href="https://plotly.com/r/getting-started/">plotly</a>, which is an R package based on the plotlyjs web framework for plotting. There is a freely available book written by the package author Carson Sievert: <a href="https://plotly-r.com/">Interactive web-based data visualization with R, plotly, and shiny</a>.</p>
 </section>
 <section id="many-many-other-shiny-packages" class="level3">
 <h3 class="anchored" data-anchor-id="many-many-other-shiny-packages">Many, many other Shiny packages</h3>
