@@ -283,30 +283,6 @@ Some useful ones for development are:
 
     ![](images/clipboard-235306912.png)
 
-### The user interface is static
-
-Code in the user interface is only run once. To illustrate this, try
-inspecting the ui object.
-
-::: {.callout-note collapse="true"}
-## Structure of a UI object
-
-```{r}
-library(shiny)
-ui <- fluidPage(
-  numericInput('n', 'Number of obs', 100),
-  plotOutput('plot')
-)
-```
-
-```{r}
-print(ui)
-```
-
-```{r}
-str(ui)
-```
-:::
 
 ## Server and Reactivity
 
@@ -439,6 +415,32 @@ reactivity.
 4.  Remove the plotOutput() from the ui. How does this change the
     execution of reactive code blocks and the messages sent between
     server and browser?
+
+
+### The user interface is static
+
+Code in the user interface is only run once. To illustrate this, try
+inspecting the ui object.
+
+::: {.callout-note collapse="true"}
+## Structure of a UI object
+
+```{r}
+library(shiny)
+ui <- fluidPage(
+  numericInput('n', 'Number of obs', 100),
+  plotOutput('plot')
+)
+```
+
+```{r}
+print(ui)
+```
+
+```{r}
+str(ui)
+```
+:::
 
 ## Advanced UI
 

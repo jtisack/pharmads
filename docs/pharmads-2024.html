@@ -133,13 +133,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#simple-shiny-app-example" id="toc-simple-shiny-app-example" class="nav-link" data-scroll-target="#simple-shiny-app-example">Simple Shiny App Example</a></li>
   <li><a href="#k-means-clustering-example" id="toc-k-means-clustering-example" class="nav-link" data-scroll-target="#k-means-clustering-example">K-Means Clustering Example</a></li>
   </ul></li>
-  <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User Interface</a>
-  <ul class="collapse">
-  <li><a href="#the-user-interface-is-static" id="toc-the-user-interface-is-static" class="nav-link" data-scroll-target="#the-user-interface-is-static">The user interface is static</a></li>
-  </ul></li>
+  <li><a href="#user-interface" id="toc-user-interface" class="nav-link" data-scroll-target="#user-interface">User Interface</a></li>
   <li><a href="#server-and-reactivity" id="toc-server-and-reactivity" class="nav-link" data-scroll-target="#server-and-reactivity">Server and Reactivity</a>
   <ul class="collapse">
   <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#the-user-interface-is-static" id="toc-the-user-interface-is-static" class="nav-link" data-scroll-target="#the-user-interface-is-static">The user interface is static</a></li>
   </ul></li>
   <li><a href="#advanced-ui" id="toc-advanced-ui" class="nav-link" data-scroll-target="#advanced-ui">Advanced UI</a>
   <ul class="collapse">
@@ -405,11 +403,103 @@ Shiny Options
 <li><p><strong>Outputs</strong> are placeholders that are later filled in by the <code>server</code> function. Each output has a corresponding render function in the <code>server</code>.</p>
 <p><img src="images/clipboard-235306912.png" class="img-fluid"></p></li>
 </ul>
+</section>
+<section id="server-and-reactivity" class="level2">
+<h2 class="anchored" data-anchor-id="server-and-reactivity">Server and Reactivity</h2>
+<ul>
+<li><p>Shiny server logic is based on a reactive programming paradigm.</p></li>
+<li><p>Reactivity means that when an input changes, all dependent outputs are recalculated.</p></li>
+<li><p>Server logic is expressed in the <code>server(input, output, session)</code> function, which Shiny invokes each time a new <em>session</em> starts.</p>
+<ul>
+<li><p>A session starts whenever a user opens the shiny app. A single shiny server may run many sessions from different (or the same) users.</p></li>
+<li><p>The parameters of the server function (input, output, session) are separate for each session.</p></li>
+</ul></li>
+<li><p>The three parameters of the <code>server</code> function are:</p>
+<ul>
+<li><p><code>input</code>: A read-only list of the inputs defined in the UI, and their current values. This is how the server function can use the inputs defined in the UI.</p></li>
+<li><p><code>output</code>: A list of outputs defined in the UI. This is how a user defines the app’s outputs, and it must always be used with a <code>render</code> function.</p></li>
+<li><p><code>session</code>: An optional parameter with a lot of functionality, mainly for advanced users. See the <a href="https://shiny.posit.co/r/reference/shiny/latest/session.html">documentation</a> for details.</p></li>
+</ul></li>
+<li><p>Code in the server function is not run linearly, it is <strong>lazy</strong> and <strong>reactive</strong>.</p>
+<ul>
+<li><p><strong>Lazy</strong> means that that it is only run when needed. If a user can’t see an output on their screen, the code to generate that output is not run. If an app has multiple pages/tabs, the code for an output isn’t run until the user navigates to that tab.</p></li>
+<li><p><strong>Reactive</strong> means that when an input is used in the code that defines an output, that output takes a <strong>dependency</strong> on the input. Whenever a dependency of an output changes, the output code will be re-run.</p></li>
+</ul></li>
+<li><p>This means that the order of code in the server function does not matter. Code is run when needed, based on the <strong>reactive graph.</strong></p>
+<ul>
+<li><p>Examples from <a href="https://shiny.posit.co/r/articles/build/reactivity-overview/">Posit Documentation</a>.</p></li>
+<li><p>A simple reactive graph.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>obs))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-1863259463.png" class="img-fluid"></p></li>
+<li><p>A more complex reactive graph. Outputs can depend on any combination of inputs. Dependencies can overlap between outputs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plotOut <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> <span class="fu">as.numeric</span>(input<span class="sc">$</span>nBreaks))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rug</span>(faithful<span class="sc">$</span>eruptions)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>tableOut <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      faithful</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NULL</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-3517538182.png" class="img-fluid"></p></li>
+<li><p>A reactive graph with an intermediate reactive expression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fib <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">ifelse</span>(n<span class="sc">&lt;</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="fu">fib</span>(n<span class="dv">-1</span>)<span class="sc">+</span><span class="fu">fib</span>(n<span class="dv">-2</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  currentFib         <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">fib</span>(<span class="fu">as.numeric</span>(input<span class="sc">$</span>n)) })</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValue    <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="fu">currentFib</span>() })</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValueInv <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="dv">1</span> <span class="sc">/</span> <span class="fu">currentFib</span>() })</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-109326790.png" class="img-fluid"></p></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reactlog
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://rstudio.github.io/reactlog/">Reactlog</a> is an R package that visualizes the reactive graph for a particular Shiny app session. This can be very helpful when trying to debug a large app with a lot of reactivity.</p>
+<p><img src="images/clipboard-2440969292.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<ol type="1">
+<li><p>Walk through the k-means clustering example and build a mental model of how it works.</p></li>
+<li><p>Add print statements to each reactive code block and test the app. Which blocks are re-run when each input changes?</p></li>
+<li><p>Turn on options(shiny.trace = TRUE). What messages are sent between server and browser when an input changes?</p></li>
+<li><p>Remove the plotOutput() from the ui. How does this change the execution of reactive code blocks and the messages sent between server and browser?</p></li>
+</ol>
+</section>
 <section id="the-user-interface-is-static" class="level3">
 <h3 class="anchored" data-anchor-id="the-user-interface-is-static">The user interface is static</h3>
 <p>Code in the user interface is only run once. To illustrate this, try inspecting the ui object.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -418,17 +508,17 @@ Structure of a UI object
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, <span class="dv">100</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">'n'</span>, <span class="st">'Number of obs'</span>, <span class="dv">100</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">'plot'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;div class="container-fluid"&gt;
   &lt;div class="form-group shiny-input-container"&gt;
@@ -440,7 +530,7 @@ Structure of a UI object
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ui)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 4
  $ :List of 10
@@ -507,98 +597,6 @@ Structure of a UI object
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="server-and-reactivity" class="level2">
-<h2 class="anchored" data-anchor-id="server-and-reactivity">Server and Reactivity</h2>
-<ul>
-<li><p>Shiny server logic is based on a reactive programming paradigm.</p></li>
-<li><p>Reactivity means that when an input changes, all dependent outputs are recalculated.</p></li>
-<li><p>Server logic is expressed in the <code>server(input, output, session)</code> function, which Shiny invokes each time a new <em>session</em> starts.</p>
-<ul>
-<li><p>A session starts whenever a user opens the shiny app. A single shiny server may run many sessions from different (or the same) users.</p></li>
-<li><p>The parameters of the server function (input, output, session) are separate for each session.</p></li>
-</ul></li>
-<li><p>The three parameters of the <code>server</code> function are:</p>
-<ul>
-<li><p><code>input</code>: A read-only list of the inputs defined in the UI, and their current values. This is how the server function can use the inputs defined in the UI.</p></li>
-<li><p><code>output</code>: A list of outputs defined in the UI. This is how a user defines the app’s outputs, and it must always be used with a <code>render</code> function.</p></li>
-<li><p><code>session</code>: An optional parameter with a lot of functionality, mainly for advanced users. See the <a href="https://shiny.posit.co/r/reference/shiny/latest/session.html">documentation</a> for details.</p></li>
-</ul></li>
-<li><p>Code in the server function is not run linearly, it is <strong>lazy</strong> and <strong>reactive</strong>.</p>
-<ul>
-<li><p><strong>Lazy</strong> means that that it is only run when needed. If a user can’t see an output on their screen, the code to generate that output is not run. If an app has multiple pages/tabs, the code for an output isn’t run until the user navigates to that tab.</p></li>
-<li><p><strong>Reactive</strong> means that when an input is used in the code that defines an output, that output takes a <strong>dependency</strong> on the input. Whenever a dependency of an output changes, the output code will be re-run.</p></li>
-</ul></li>
-<li><p>This means that the order of code in the server function does not matter. Code is run when needed, based on the <strong>reactive graph.</strong></p>
-<ul>
-<li><p>Examples from <a href="https://shiny.posit.co/r/articles/build/reactivity-overview/">Posit Documentation</a>.</p></li>
-<li><p>A simple reactive graph.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>obs))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="images/clipboard-1863259463.png" class="img-fluid"></p></li>
-<li><p>A more complex reactive graph. Outputs can depend on any combination of inputs. Dependencies can overlap between outputs.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plotOut <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(faithful<span class="sc">$</span>eruptions, <span class="at">breaks =</span> <span class="fu">as.numeric</span>(input<span class="sc">$</span>nBreaks))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rug</span>(faithful<span class="sc">$</span>eruptions)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>tableOut <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>individualObs)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      faithful</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NULL</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="images/clipboard-3517538182.png" class="img-fluid"></p></li>
-<li><p>A reactive graph with an intermediate reactive expression.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fib <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">ifelse</span>(n<span class="sc">&lt;</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="fu">fib</span>(n<span class="dv">-1</span>)<span class="sc">+</span><span class="fu">fib</span>(n<span class="dv">-2</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  currentFib         <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">fib</span>(<span class="fu">as.numeric</span>(input<span class="sc">$</span>n)) })</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValue    <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="fu">currentFib</span>() })</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>nthValueInv <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ <span class="dv">1</span> <span class="sc">/</span> <span class="fu">currentFib</span>() })</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="images/clipboard-109326790.png" class="img-fluid"></p></li>
-</ul></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Reactlog
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><a href="https://rstudio.github.io/reactlog/">Reactlog</a> is an R package that visualizes the reactive graph for a particular Shiny app session. This can be very helpful when trying to debug a large app with a lot of reactivity.</p>
-<p><img src="images/clipboard-2440969292.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<section id="exercise" class="level3">
-<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
-<ol type="1">
-<li><p>Walk through the k-means clustering example and build a mental model of how it works.</p></li>
-<li><p>Add print statements to each reactive code block and test the app. Which blocks are re-run when each input changes?</p></li>
-<li><p>Turn on options(shiny.trace = TRUE). What messages are sent between server and browser when an input changes?</p></li>
-<li><p>Remove the plotOutput() from the ui. How does this change the execution of reactive code blocks and the messages sent between server and browser?</p></li>
-</ol>
 </section>
 </section>
 <section id="advanced-ui" class="level2">
