@@ -53,27 +53,6 @@ Rate your experience level with R:
 
 Have you used Shiny before?
 
-## Following along during the Course
-
-Several options for running the code during the course:
-
-1.  [Shinylive](https://shinylive.io/r/editor/) is now the easiest way
-    to run a simple Shiny app. Shiny will run in your browser alongside
-    a basic editor.
-
-    -   This works using [WebR](https://docs.r-wasm.org/), which is a
-        version for R compiled for the browser using WebAssembly. This
-        is still in early stages and isn't recommended for production
-        use. [Try it here](https://webr.r-wasm.org/latest/).
-
-2.  [RStudio IDE](https://posit.co/products/open-source/rstudio/) is the
-    best way to do Shiny development. There are two ways to use it:
-
-    1.  [Download and install](https://posit.co/downloads/) RStudio
-        Desktop.
-    2.  Run it through your browser with a free [Posit
-        Cloud](https://posit.cloud/plans/free) account.
-
 ## What is Shiny?
 
 -   **Shiny Basics**
@@ -121,6 +100,27 @@ Several options for running the code during the course:
         features in an approachable manner.
     -   [Shiny Cheat
         Sheet](https://shiny.posit.co/r/articles/start/cheatsheet/)
+
+## Following along during the Course
+
+Several options for running the code during the course:
+
+1.  [Shinylive](https://shinylive.io/r/editor/) is now the easiest way
+    to run a simple Shiny app. Shiny will run in your browser alongside
+    a basic editor.
+
+    -   This works using [WebR](https://docs.r-wasm.org/), which is a
+        version for R compiled for the browser using WebAssembly. This
+        is still in early stages and isn't recommended for production
+        use. [Try it here](https://webr.r-wasm.org/latest/).
+
+2.  [RStudio IDE](https://posit.co/products/open-source/rstudio/) is the
+    best way to do Shiny development. There are two ways to use it:
+
+    1.  [Download and install](https://posit.co/downloads/) RStudio
+        Desktop.
+    2.  Run it through your browser with a free [Posit
+        Cloud](https://posit.cloud/plans/free) account.
 
 ## Shiny Architecture
 

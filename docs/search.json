@@ -14,18 +14,18 @@
     "text": "These materials provide an introduction to using R Shiny for data storytelling. They were prepared for the Mastering Storytelling for Pharma Data Science Professionals short course at the Pharmaceutical Data Science Conference 2024 held at University of Connecticut in March 2024.\nThe materials were prepared by Jonathan Tisack (BeiGene) and Dr. Zhiwei Yin (Bristol Myers Squibb).\n\n\n\nJonathan Tisack, M.S. Mathematics\nData Scientist at BeiGene\nR/Shiny user for over 5 years\n\n\n\n\n\nShiny enables any R user to bring their work to the web\nMany great data visualization technologies are made for the web (D3, Plotly)\nWeb technologies allow for interactivity (Example: 538 March Madness Predictions)\nShiny in Regulatory Submission\n\n\n\n\nRate your experience level with R:\n\nI barely know any R\nI know enough R to get around\nI know R inside out\n\nHave you used Shiny before?"
   },
   {
-    "objectID": "pharmads-2024.html#following-along-during-the-course",
-    "href": "pharmads-2024.html#following-along-during-the-course",
-    "title": "Storytelling with Shiny",
-    "section": "Following along during the Course",
-    "text": "Following along during the Course\nSeveral options for running the code during the course:\n\nShinylive is now the easiest way to run a simple Shiny app. Shiny will run in your browser alongside a basic editor.\n\nThis works using WebR, which is a version for R compiled for the browser using WebAssembly. This is still in early stages and isn’t recommended for production use. Try it here.\n\nRStudio IDE is the best way to do Shiny development. There are two ways to use it:\n\nDownload and install RStudio Desktop.\nRun it through your browser with a free Posit Cloud account."
-  },
-  {
     "objectID": "pharmads-2024.html#what-is-shiny",
     "href": "pharmads-2024.html#what-is-shiny",
     "title": "Storytelling with Shiny",
     "section": "What is Shiny?",
     "text": "What is Shiny?\n\nShiny Basics\n\nR Shiny is an open source R package that enables easy creation of interactive web applications. It is also available for Python, but the package ecosystem is far less developed.\nPosit (formerly RStudio) created Shiny and continues to lead development.\nNo web development skills required. Shiny generates all the HTML, CSS, and JavaScript for the web app.\nBasic R proficiency is all that is required to use R Shiny.\nShiny has a very active community of developers. There are many, many additional R packages that enhance Shiny.\n\nUse Cases\n\nPosit has many examples in the Shiny Gallery\nInteractive data visualization and exploration. Replace a giant PDF of plots with a single app.\nCustomized report generation. Allow users to generate their own reports or tables.\nDeploying R scripts for non-technical users. Make a basic interface that will allow users to interact with your code.\nMake your reports interactive. Shiny can be integrated into RMarkdown/Quarto documents. R/Pharma talk by Max Kuhn on using Shinylive in his new book.\nMake a front-end interface for a large language model.\nEducation tools to explain statistical concepts.\nRStudio IDE gadgets.\n\nLearning Resources\nShiny has been around for 10+ years and there are many learning resources available.\n\nR Shiny Documentation - Includes articles explaining specific topics, as well as a full function reference.\nMastering Shiny book - A book by Hadley Wickham, freely available online, that covers all Shiny features in an approachable manner.\nShiny Cheat Sheet"
+  },
+  {
+    "objectID": "pharmads-2024.html#following-along-during-the-course",
+    "href": "pharmads-2024.html#following-along-during-the-course",
+    "title": "Storytelling with Shiny",
+    "section": "Following along during the Course",
+    "text": "Following along during the Course\nSeveral options for running the code during the course:\n\nShinylive is now the easiest way to run a simple Shiny app. Shiny will run in your browser alongside a basic editor.\n\nThis works using WebR, which is a version for R compiled for the browser using WebAssembly. This is still in early stages and isn’t recommended for production use. Try it here.\n\nRStudio IDE is the best way to do Shiny development. There are two ways to use it:\n\nDownload and install RStudio Desktop.\nRun it through your browser with a free Posit Cloud account."
   },
   {
     "objectID": "pharmads-2024.html#shiny-architecture",
