@@ -425,6 +425,21 @@ reactivity.
 ![](images/clipboard-2440969292.png)
 :::
 
+### Exercise
+
+1.  Walk through the k-means clustering example and build a mental model
+    of how it works.
+
+2.  Add print statements to each reactive code block and test the app.
+    Which blocks are re-run when each input changes?
+
+3.  Turn on options(shiny.trace = TRUE). What messages are sent between
+    server and browser when an input changes?
+
+4.  Remove the plotOutput() from the ui. How does this change the
+    execution of reactive code blocks and the messages sent between
+    server and browser?
+
 ## Advanced UI
 
 ### Bslib

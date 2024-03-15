@@ -137,7 +137,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#the-user-interface-is-static" id="toc-the-user-interface-is-static" class="nav-link" data-scroll-target="#the-user-interface-is-static">The user interface is static</a></li>
   </ul></li>
-  <li><a href="#server-and-reactivity" id="toc-server-and-reactivity" class="nav-link" data-scroll-target="#server-and-reactivity">Server and Reactivity</a></li>
+  <li><a href="#server-and-reactivity" id="toc-server-and-reactivity" class="nav-link" data-scroll-target="#server-and-reactivity">Server and Reactivity</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul></li>
   <li><a href="#advanced-ui" id="toc-advanced-ui" class="nav-link" data-scroll-target="#advanced-ui">Advanced UI</a>
   <ul class="collapse">
   <li><a href="#bslib" id="toc-bslib" class="nav-link" data-scroll-target="#bslib">Bslib</a></li>
@@ -588,6 +591,15 @@ Reactlog
 </div>
 </div>
 </div>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<ol type="1">
+<li><p>Walk through the k-means clustering example and build a mental model of how it works.</p></li>
+<li><p>Add print statements to each reactive code block and test the app. Which blocks are re-run when each input changes?</p></li>
+<li><p>Turn on options(shiny.trace = TRUE). What messages are sent between server and browser when an input changes?</p></li>
+<li><p>Remove the plotOutput() from the ui. How does this change the execution of reactive code blocks and the messages sent between server and browser?</p></li>
+</ol>
+</section>
 </section>
 <section id="advanced-ui" class="level2">
 <h2 class="anchored" data-anchor-id="advanced-ui">Advanced UI</h2>
