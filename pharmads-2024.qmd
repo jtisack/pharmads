@@ -22,15 +22,33 @@ Yin](https://www.linkedin.com/in/zhiwei-yin-0ba00569/){target="_blank"}
 ### About me
 
 -   Jonathan Tisack, M.S. Mathematics
+
 -   Data Scientist at BeiGene
+
 -   R/Shiny user for over 5 years
+
+### Why Shiny?
+
+-   Shiny enables any R user to bring their work to the web
+
+-   Many great data visualization technologies are made for the web
+    ([D3](https://d3js.org/), [Plotly](https://plotly.com/javascript/))
+
+-   Web technologies allow for interactivity (Example: [538 March
+    Madness
+    Predictions](https://projects.fivethirtyeight.com/2023-march-madness-predictions/))
+
+-   [Shiny in Regulatory
+    Submission](https://www.r-consortium.org/blog/2022/12/07/update-successful-r-based-package-submission-with-shiny-component-to-fda)
 
 ### Survey
 
 Rate your experience level with R:
 
 1.  I barely know any R
+
 2.  I know enough R to get around
+
 3.  I know R inside out
 
 Have you used Shiny before?
@@ -40,8 +58,8 @@ Have you used Shiny before?
 Several options for running the code during the course:
 
 1.  [Shinylive](https://shinylive.io/r/editor/) is now the easiest way
-    to run a simple Shiny app. Simply click the link and Shiny will run
-    in your browser alongside a basic editor.
+    to run a simple Shiny app. Shiny will run in your browser alongside
+    a basic editor.
 
     -   This works using [WebR](https://docs.r-wasm.org/), which is a
         version for R compiled for the browser using WebAssembly. This
@@ -73,6 +91,8 @@ Several options for running the code during the course:
 
 -   **Use Cases**
 
+    -   Posit has many examples in the [Shiny
+        Gallery](https://shiny.posit.co/r/gallery/)
     -   Interactive data visualization and exploration. Replace a giant
         PDF of plots with a single app.
     -   Customized report generation. Allow users to generate their own
@@ -141,15 +161,10 @@ shinyApp(ui, server)
 
 ## Examples
 
--   Posit has many examples in the [Shiny
-    Gallery](https://shiny.posit.co/r/gallery/)
+### Simple Shiny App Example
 
-### Single-file Shiny App Example
-
--   [Single File Shiny App
-    Example](https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/)
-    ([Open in Shinylive
-    editor](https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAYgAIBxAGyICMpHaA3KAJwEsoLRnADOtAlAi0A5kVoALODzgAdCFIA8AWloAmAAz61xiHQAicAGZ8IcWqUW0AqgEk1AVz61ttFkSKkIqQ8aAAKUNJwABRqtLQQ7vD8BC4QqO6kUQDkEFm4tFkAcoksSrREluUsInnxAJS4sbSozKQA8hnpmVktAVl1agMQJuZWNnYOdiJKnGXEACaqENM8szzeOpbuEASkfCRRNl35RJ0ZdbQgTaekXQAkvaQbtMoQizyhrVFXUnEKfEEojxtnxLIc0hk7hA6kM4gBfIZwka0LBwUjuHhSKC0ADK8hsAE9aGhUFUAFZwXZqET4iAEgCC6CinloAF5aJ58is1mzaNylHUwHCALpAA))
+-   Simple Shiny App ([Open in Shinylive
+    editor](https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAYgAIBxAGyICMpHaA3KAJwEsoLRnADOtAlAi0A5kVoALODzgAdCABM4AMygBXRqQD6UgDwBaWgCYADNbVq6AEW18IcWqUW0AqgEk1uny05rQsRESkIqQ8aAAKUNJwABRqtLQQuvD8BL4QqLqkSQDkEEW4tEUAcpksSrREWvUsImW0mjr6RhAAlLiptKjMpADyBfmFRYMRRd1qsxAOtM5aru6e7iJKnHXEmmqbPNs8wRZauhAEpHwkSa7j5URjBd20IP2PpOMAJFOkJ7TKDRKWJDJJvKRpBR8KJJHjnPhaW55ApfHrzNIAX3mGPsEDoWDgpF0PCkUFoAGV5K4AJ60NCoJoAKzgl32VIg1IAgugkoFaABeWiBcoHI4C2iipTdMAYgC6QA))
 
     ```{r}
     #| echo: true
@@ -158,14 +173,13 @@ shinyApp(ui, server)
     library(shiny)
 
     # Global variables can go here
-    n <- 200
+    default_n <- 200
 
     # Define the UI
     ui <- bootstrapPage(
-      numericInput('n', 'Number of obs', n),
+      numericInput('n', 'Number of obs', default_n),
       plotOutput('plot')
     )
-
 
     # Define the server code
     server <- function(input, output) {
@@ -185,56 +199,75 @@ shinyApp(ui, server)
     ([Open in Shinylive
     editor](https://shinylive.io/r/editor/#code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IIgMQACANYBaeFAicJJaqwkB3IoylL1tUtwkQArvEa0CUahIBuLWlHrU4nXOImciEgCYkA5KQSAOa0NnASBuHGnHCMEdzhRKiktCQRXjHOBKTuUBKW5EFaFla29o7OInaMSgA8Mh5wpN60AGat7NDwnOy05pwCuBJCYADKqHAEtC4jwqImtBL1EqhQQXAA6vrco7TecPQs7CISEglQ+4wACgpw1Ox+AJL90nJwCkoE1NHk5hBBfkGJw8ewOLBuEDuxwgp1OmUmpEeEFQxlIDwAHsRqH4hn4ABoSABq5SccBxZRqQJhsPh2SRKLRflYWPJfgAmkSSc5ydVXI0suRvBIALwUzjAYAAJgAutKqbCjKZYhZ6aiHl8frFOKyAMLfTi-fJEYxkckAZiGMD4IokAEZLVB0TaAJxzU7yiQwKB8CFQ4GnVDUIikADyqIZD0DwdtgOBczmIhEMUYYTiy1aJuyqQgvWRqKGxtIDKGMU4nGzAgkIET1MkOqIMHofHCkX5CLgQuqDlJSj4pC8eUh6h8UFIeVazHgwNpgoAIqO8stGO8s2F2NXqac+rRxUMCLmGQASTFEahDPhH5mngTS4EAXwT1I1Bq1Sway6gq7g6-90nkii4O5228ecx3YQYJAvVFD2fX4BnvR9TkLI8o1IW03wkZcIEuK4gzRDcFVWZxSHIdh9xGMQAFEABZbQAQVtHURiGCizQAdjYyiACEAA5mOGMAxGo2c6IAMWouj+Io50eOoyi6LNZjf1OCjRNEtjRIABk0qTBLUtSzUUvABLEOiADYAFYzMlPjjNUtieNtLjRN0sRnXcjzZkQ2FVkYdgvTiUV9wsjB7QkajQqGTShltAQ3R8vDAIFDtQKgcC3E3BVTixG1YK1cCYP1X4MqywiCEMUVJWi-I4CdUUzXigMiD7Ho8pqAqCAoOChlQcqbWovdav6oZqHUIVRWo+KHxrO8azrD9yAkUZeH4CQ0FQCQZC2mQkxW1g6PQdhjEWUVjpLWJUxtZNUzmMA72lIA))
 
-```{r}
-#| echo: true
-#| eval: false
-#| code-fold: true
-library(shiny)
+    ```{r}
+    #| echo: true
+    #| eval: false
+    #| code-fold: true
+    library(shiny)
 
-# k-means only works with numerical variables,
-# so don't give the user the option to select
-# a categorical variable
-vars <- setdiff(names(iris), "Species")
+    # k-means only works with numerical variables,
+    # so don't give the user the option to select
+    # a categorical variable
+    vars <- setdiff(names(iris), "Species")
 
-ui <- pageWithSidebar(
-  headerPanel('Iris k-means clustering'),
-  sidebarPanel(
-    selectInput('xcol', 'X Variable', vars),
-    selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
-    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
-  ),
-  mainPanel(
-    plotOutput('plot1')
-  )
-)
+    ui <- pageWithSidebar(
+      headerPanel('Iris k-means clustering'),
+      sidebarPanel(
+        selectInput('xcol', 'X Variable', vars),
+        selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
+        numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
+      ),
+      mainPanel(
+        plotOutput('plot1')
+      )
+    )
 
-server <- function(input, output, session) {
+    server <- function(input, output, session) {
 
-  # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
-  })
+      # Combine the selected variables into a new data frame
+      selectedData <- reactive({
+        iris[, c(input$xcol, input$ycol)]
+      })
 
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
-  })
+      clusters <- reactive({
+        kmeans(selectedData(), input$clusters)
+      })
 
-  output$plot1 <- renderPlot({
-    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
-      "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+      output$plot1 <- renderPlot({
+        palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+          "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
 
-    par(mar = c(5.1, 4.1, 0, 1))
-    plot(selectedData(),
-         col = clusters()$cluster,
-         pch = 20, cex = 3)
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
-  })
+        par(mar = c(5.1, 4.1, 0, 1))
+        plot(selectedData(),
+             col = clusters()$cluster,
+             pch = 20, cex = 3)
+        points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+      })
 
-}
+    }
 
-# Create Shiny app ----
-shinyApp(ui = ui, server = server)
-```
+    # Create Shiny app ----
+    shinyApp(ui = ui, server = server)
+    ```
+
+::: {.callout-note collapse="true"}
+#### Shiny Options
+
+You can change the way a Shiny app behaves by setting options ([full
+documentation](https://shiny.posit.co/r/reference/shiny/1.7.0/shinyoptions)).
+Some useful ones for development are:
+
+-   options(shiny.error = browser) will open the RStudio debugger when
+    the app encounters an error
+
+-   options(shiny.autoreload = TRUE) will monitor files in your working
+    directory and auto reload the app whenever a file change is
+    detected. Can be configured to monitor specific file patterns.
+
+-   options(shiny.trace = TRUE) prints messages sent between the Shiny
+    server and the browser. Results in a lot of output but good for
+    debugging.
+:::
 
 ## User Interface
 
